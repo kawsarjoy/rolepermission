@@ -1,6 +1,6 @@
 <?php
 
-namespace KawsarJoy\RolePermission;
+namespace KawsarJoy\RolePermission\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
