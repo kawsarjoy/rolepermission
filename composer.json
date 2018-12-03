@@ -1,0 +1,17 @@
+{
+    "name": "joy/role-permission",
+    "description": "A role permission package for laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mohammad Abu Kawsar",
+            "email": "engabukawsar@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "KawsarJoy\\RolePermission\\": "src/"
+        }
+    }
+}
