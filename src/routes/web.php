@@ -1,5 +1,5 @@
 <?php
 
-    Route::get('role', function(){
+    Route::get('joy', function(){
         return 'Hello from the role permission package';
     });

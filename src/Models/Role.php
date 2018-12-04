@@ -11,8 +11,17 @@ class Role extends Model
 	  return $this->belongsToMany('App\User');
 	}
 
-    public function permissions()
-    {
-      return $this->belongsToMany('App\Model\Permission');
-    }
+  public function permissions()
+  {
+    return $this->belongsToMany('KawsarJoy\RolePermission\Models\Permission');
+  }
+
+  public function scopeGetRoleByPermission($query, $name)
+  {
+    return $query->whereHas('permissions', function ($query) use($name) {
+      
+          $query->where('name', $name);
+      })->get();
+  }
+
 }

@@ -8,14 +8,13 @@
           return $this->belongsToMany('KawsarJoy\RolePermission\Models\Role');
         }
     
-        public function hasRole($roles){
-            if (!is_array($roles)) {
-                $roles = [$roles]; 
-            }
+        public function hasRole($roles)
+        {
+            if (!is_array($roles)) $roles = [$roles];
             
-            if ($this->roles()->whereIn('name', $roles)->first()) {
+            if ($this->roles()->whereIn('name', $roles)->first()) 
                 return true;
-            }
+
             return false;
         }
     
@@ -24,10 +23,11 @@
           $permissions = [];
     
           foreach ($this->roles as $key => $role) {
+
             $permissions[] = $role->permissions;
           }
     
-          return $permissions;
+          return collect($permissions)->flatten();
         }
     
         /**
@@ -35,17 +35,16 @@
          */
         public function hasPermission($permissions)
         {
-          if(!is_array($permissions)){
-            $permissions = [$permissions];
-          }
+          if(!is_array($permissions)) $permissions = [$permissions];
     
-          return (boolean) count($this->permissions()->whereIn('name', $permissions)->first());
+          return (boolean) $this->permissions()->whereIn('name', $permissions)->first();
         }
     
     
         public function scopeGetUserByRole($query, $name)
         {
           return $query->whereHas('roles', function ($query) use($name) {
+            
                 $query->where('name', $name);
             })->get();
         }
