@@ -11,7 +11,7 @@
 
             $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
 
-            //$this->loadMigrationsFrom(__DIR__.'/resources/views', 'rolepermission');
+            $this->loadViewsFrom(__DIR__.'/resources/views', 'rolepermission');
 
             $this->app['router']->aliasMiddleware('roles', \KawsarJoy\RolePermission\Http\Middleware\CheckRole::class);
 

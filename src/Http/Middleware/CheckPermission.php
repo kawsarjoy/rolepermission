@@ -23,6 +23,6 @@ class CheckPermission
             return $next($request);
         }
 
-        return response()->view('errors.403', ['error' => 'This action is unauthorized.'], 403);
+        return response()->view('rolepermission::errors.403', ['error' => 'This action is unauthorized.'], 403);
     }
 }
