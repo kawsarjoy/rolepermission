@@ -4,7 +4,6 @@ namespace KawsarJoy\RolePermission\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
 use KawsarJoy\RolePermission\Models\Role;
 use KawsarJoy\RolePermission\Models\Permission;
 
@@ -19,7 +18,7 @@ class ManageRolePermissionController extends Controller
     public function index()
     {
         return view('rolepermission::manageRolePermission')->with([
-            'users' => User::all(),
+            'users' => config('default-user.model')::all()->toArray(),
             'roles' => Role::all(),
             'permissions' => Permission::all()
         ]);
@@ -57,7 +56,7 @@ class ManageRolePermissionController extends Controller
             'roles.*' => 'bail|required|integer'
         ]);
 
-        User::find($validatedData['user'])->roles()->sync($validatedData['roles']);
+        config('default-user.model')::find($validatedData['user'])->roles()->sync($validatedData['roles']);
 
         return redirect()->route('manageRolePermission');
     }

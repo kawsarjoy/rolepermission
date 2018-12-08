@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1z">
 
-        <title>Laravel</title>
+        <title>KawsarJoy-rolepermission</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
@@ -134,7 +134,7 @@
                                 <select name="user" id="user" class="form-control" required>
                                     @foreach($users as $user)
 
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        <option value="<?php echo $user[config('default-user.primary-key')] ;?>">{{ $user[config('default-user.name')] }}</option>
 
                                     @endforeach
                                 </select>

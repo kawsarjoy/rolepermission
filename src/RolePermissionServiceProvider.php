@@ -15,6 +15,7 @@
 
             $this->publishes([
                 __DIR__.'/resources/views' => resource_path('views/vendor/rolepermission'),
+                __DIR__.'/config/default-user.php' => config_path('default-user.php'),
             ]);
 
             $this->app['router']->aliasMiddleware('roles', \KawsarJoy\RolePermission\Http\Middleware\CheckRole::class);
@@ -25,6 +26,8 @@
 
         public function register()
         {
-
+            $this->mergeConfigFrom(
+                __DIR__.'/config/default-user.php', 'default-user'
+            );
         }
     }
