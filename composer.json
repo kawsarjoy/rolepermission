@@ -13,5 +13,12 @@
         "psr-4": {
             "KawsarJoy\\RolePermission\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "KawsarJoy\\RolePermission\\RolePermissionServiceProvider"
+            ]
+        }
     }
 }

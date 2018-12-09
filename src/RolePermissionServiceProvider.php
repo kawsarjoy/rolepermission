@@ -14,9 +14,15 @@
             $this->loadViewsFrom(__DIR__.'/resources/views', 'rolepermission');
 
             $this->publishes([
-                __DIR__.'/resources/views' => resource_path('views/vendor/rolepermission'),
+                __DIR__.'/resources/views' => resource_path('views/vendor/rolepermission')
+            ], 'config');
+
+            $this->publishes([
                 __DIR__.'/config/default-user.php' => config_path('default-user.php'),
-            ]);
+            ], 'views');
+
+
+
 
             $this->app['router']->aliasMiddleware('roles', \KawsarJoy\RolePermission\Http\Middleware\CheckRole::class);
 
