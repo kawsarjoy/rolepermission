@@ -5,7 +5,7 @@ A Simple package for handling roles and permissions in Laravel.
 - [Installation](#installation)
     - [Composer](#composer)
     - [Service Provider](#service-provider)
-    - [Config File And Migrations](#config-file-and-migrations)
+    - [Config File](#config-file)
     - [Permissible Trait](#permissible-trait)
     - [Migrations and Seeds](#migrations-and-seeds)
 - [Usage](#usage)
@@ -13,7 +13,6 @@ A Simple package for handling roles and permissions in Laravel.
     - [Attaching, Detaching and Syncing Roles](#attaching-detaching-and-syncing-roles)
     - [Assign a user role to new registered users](#assign-a-user-role-to-new-registered-users)
     - [Checking For Roles](#checking-for-roles)
-    - [Levels](#levels)
     - [Creating Permissions](#creating-permissions)
     - [Attaching, Detaching and Syncing Permissions](#attaching-detaching-and-syncing-permissions)
     - [Checking For Permissions](#checking-for-permissions)
@@ -348,6 +347,9 @@ php artisan vendor:publish --tag=views
 ```
 
 ---
+## Credit Notes
+This package readme file is inspired from [laravel-roles](https://github.com/jeremykenedy/laravel-roles)
+
 
 ## Config File
 You can change connection for models, slug separator, models path and there is also a handy pretend feature. Have a look at config file for more information.
