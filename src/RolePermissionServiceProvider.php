@@ -31,6 +31,8 @@
 
             $this->registerBladeDirectives();
 
+            $this->registerGates();
+
         }
 
         public function register()
@@ -57,6 +59,24 @@
                 return "<?php if (Auth::check() && Auth::user()->hasPermission({$expression})): ?>";
             });
 
+        }
+
+        /**
+         * Register Gates.
+         *
+         * @return void
+         */
+        protected function registerGates()
+        {
+            Gate::define('roles', function ($user, $roles) {
+
+                return $user->hasRole(explode('|', $roles));
+            });
+
+            Gate::define('permissions', function ($user, $permissions) {
+                
+                return $user->hasPermission(explode('|', $permissions));
+            });
         }
 
     }
