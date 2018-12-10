@@ -1,4 +1,4 @@
-# Roles And Permissions For Laravel 5.7.
+# Roles And Permissions For Laravel 5.7
 
 A Simple package for handling roles and permissions in Laravel.
 
@@ -58,9 +58,9 @@ Add the package to your application service providers in `config/app.php` file.
 
 ### Config File
 
-Publish the package config file and views to your application. Run these commands inside your terminal.
+Publish the package config file to your application. Run these commands inside your terminal.
 
-    php artisan vendor:publish
+    php artisan vendor:publish --tag=config
 
 ### Permissible Trait
 
@@ -352,7 +352,7 @@ This package readme file is inspired from [laravel-roles](https://github.com/jer
 
 
 ## Config File
-You can change connection for models, slug separator, models path and there is also a handy pretend feature. Have a look at config file for more information.
+You can change model name, primary key from default-user.php in config. Have a look at config file for more information.
 
 ## More Information
 For more information, please have a look at [HasRoleAndPermission](https://github.com/kawsarjoy/rolepermission/blob/master/src/Permissible.php) trait.
