@@ -28,6 +28,9 @@
 
             $this->app['router']->aliasMiddleware('permissions', \KawsarJoy\RolePermission\Http\Middleware\CheckPermission::class);
 
+
+            $this->registerBladeDirectives();
+
         }
 
         public function register()
@@ -36,4 +39,24 @@
                 __DIR__.'/config/permissions-config.php', 'permissions-config'
             );
         }
+
+        /**
+         * Register Blade Directives.
+         *
+         * @return void
+         */
+        protected function registerBladeDirectives()
+        {
+            $blade = $this->app['view']->getEngineResolver()->resolve('blade')->getCompiler();
+            
+            $blade->directive('role', function ($expression) {
+                return "<?php if (Auth::check() && Auth::user()->hasRole({$expression})): ?>";
+            });
+
+            $blade->directive('permission', function ($expression) {
+                return "<?php if (Auth::check() && Auth::user()->hasPermission({$expression})): ?>";
+            });
+
+        }
+
     }
