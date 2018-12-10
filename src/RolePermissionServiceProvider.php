@@ -18,7 +18,7 @@
             ], 'config');
 
             $this->publishes([
-                __DIR__.'/config/default-user.php' => config_path('default-user.php'),
+                __DIR__.'/config/permissions-config.php' => config_path('permissions-config.php'),
             ], 'views');
 
 
@@ -33,7 +33,7 @@
         public function register()
         {
             $this->mergeConfigFrom(
-                __DIR__.'/config/default-user.php', 'default-user'
+                __DIR__.'/config/permissions-config.php', 'permissions-config'
             );
         }
     }

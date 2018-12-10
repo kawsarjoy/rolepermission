@@ -18,7 +18,7 @@ class ManageRolePermissionController extends Controller
     public function index()
     {
         return view('rolepermission::manageRolePermission')->with([
-            'users' => config('default-user.model')::all()->toArray(),
+            'users' => config('permissions-config.model')::all()->toArray(),
             'roles' => Role::all(),
             'permissions' => Permission::all()
         ]);
@@ -56,7 +56,7 @@ class ManageRolePermissionController extends Controller
             'roles.*' => 'bail|required|integer'
         ]);
 
-        config('default-user.model')::find($validatedData['user'])->roles()->sync($validatedData['roles']);
+        config('permissions-config.model')::find($validatedData['user'])->roles()->sync($validatedData['roles']);
 
         return redirect()->route('manageRolePermission');
     }

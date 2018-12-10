@@ -16,7 +16,7 @@ class CheckRole
     public function handle($request, Closure $next, $roles)
     {
         if ($request->user() === null) {
-            return redirect()->route('login');
+            return redirect()->route(config('permissions-config.login-route'));
         }
         
         if ($request->user()->hasRole(explode('|', $roles))) {

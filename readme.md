@@ -320,6 +320,8 @@ Route::get('/', function () {
     //
 })->middleware('permissions:edit-user');
 
+//Permissions middleware will chack the permissions based on the resource route names eg. [users/create => [users.create | [prefix].users.create]]
+Route::Resource('users','UserController')->middleware('permissions');
 
 Route::group(['middleware' => ['roles:admin']], function () {
     //

@@ -134,7 +134,7 @@
                                 <select name="user" id="user" class="form-control" required>
                                     @foreach($users as $user)
 
-                                        <option value="<?php echo $user[config('default-user.primary-key')] ;?>">{{ $user[config('default-user.name')] }}</option>
+                                        <option value="<?php echo $user[config('permissions-config.primary-key')] ;?>">{{ $user[config('permissions-config.name')] }}</option>
 
                                     @endforeach
                                 </select>
