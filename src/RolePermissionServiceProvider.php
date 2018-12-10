@@ -2,6 +2,7 @@
     namespace KawsarJoy\RolePermission;
 
     use Illuminate\Support\ServiceProvider;
+    use Illuminate\Support\Facades\Gate;
 
     class RolePermissionServiceProvider extends ServiceProvider
     {
