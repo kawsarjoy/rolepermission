@@ -17,9 +17,12 @@ class CheckPermission
     {
         if ($request->user() === null) {
             return redirect()->route('login');
-        }
+        }        
         
-        if ($request->user()->hasPermission(explode('|', $permissions))) {
+        if ($request->user()->hasPermission($request->route()->action['as'])) {
+            return $next($request);
+        }
+        else if ($request->user()->hasPermission(explode('|', $permissions))) {
             return $next($request);
         }
 
