@@ -10,7 +10,7 @@ class Role extends Model
   
 	public function users()
 	{
-	  return $this->belongsToMany(config('default-user.model'));
+	  return $this->belongsToMany(config('permissions-config.model'));
 	}
 
   public function permissions()

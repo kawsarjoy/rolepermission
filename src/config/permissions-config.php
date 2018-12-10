@@ -3,5 +3,6 @@
     return [
         'model' => 'App\User',
         'primary-key' => 'id',
-        'name' => 'name'
+        'name' => 'name',
+        'login-route' => 'login'
     ];

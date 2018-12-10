@@ -11,12 +11,13 @@ class CheckPermission
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
+     * @param  String  $permissions default ''
      * @return mixed
      */
-    public function handle($request, Closure $next, $permissions)
+    public function handle($request, Closure $next, $permissions = '')
     {
         if ($request->user() === null) {
-            return redirect()->route('login');
+            return redirect()->route(config('permissions-config.login-route'));
         }        
         
         if ($request->user()->hasPermission($request->route()->action['as'])) {
