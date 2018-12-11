@@ -56,8 +56,16 @@
                 return "<?php if (Auth::check() && Auth::user()->hasRole({$expression})): ?>";
             });
 
+            $blade->directive('endrole', function () {
+                return '<?php endif; ?>';
+            });
+
             $blade->directive('permission', function ($expression) {
                 return "<?php if (Auth::check() && Auth::user()->hasPermission({$expression})): ?>";
+            });
+
+            $blade->directive('endpermission', function () {
+                return '<?php endif; ?>';
             });
 
         }
