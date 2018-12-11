@@ -17,6 +17,7 @@ A Simple package for handling roles and permissions in Laravel.
     - [Attaching, Detaching and Syncing Permissions](#attaching-detaching-and-syncing-permissions)
     - [Checking For Permissions](#checking-for-permissions)
     - [Blade Extensions](#blade-extensions)
+    - [Gate](#gate)
     - [Middleware](#middleware)
 - [Config File](#config-file)
 - [More Information](#more-information)
@@ -294,20 +295,81 @@ There are four Blade extensions. Basically, it is replacement for classic if sta
     // user has admin role
 @endrole
 
+@role('admin|author') // @if(Auth::check() && Auth::user()->hasRole('admin|author'))
+    // user has admin or author role
+@endrole
+
+
 @permission('edit-articles') // @if(Auth::check() && Auth::user()->hasPermission('edit-articles'))
     // user has edit articles permissison
 @endpermission
 
-@role('admin|moderator', true) // @if(Auth::check() && Auth::user()->hasRole('admin|moderator', true))
-    // user has admin and moderator role
-@else
-    // something else
-@endrole
+@permission('edit-articles|add-articles') // @if(Auth::check() && Auth::user()->hasPermission('edit-articles|add-articles'))
+    // user has edit or add articles permissison
+@endpermission
+
+```
+### Gate
+
+This packes comes with `roles`, `permissions` gate. Now you can easily protect your controller methods.
+
+```php
+
+public function create()
+{
+    if(Gate::allows('roles', 'admin')) 
+    {
+        // user has admin role
+    }
+}
+
+// you can pass multiple role 
+
+public function edit()
+{
+    if(Gate::allows('roles', 'admin|author'))
+    {
+        // user has admin or author role
+    }
+}
+
+// same goes for permission 
+
+// Gate::allows('permissions', 'add-articles')
+
+// Gate::allows('permissions', 'add-articles|edit-articles')
+
+// you can also use 
+
+public function create()
+{
+    if(Gate::denies('roles', 'admin')) 
+    {
+        // user has not admin role
+    }
+}
+
+public function edit()
+{
+    if(Gate::denies('roles', 'admin|author'))
+    {
+        // user neither has admin nor author role
+    }
+}
+
+// same goes for permission 
+
+// Gate::denies('permissions', 'add-articles')
+// user do not have add article permission
+
+// Gate::denies('permissions', 'add-articles|edit-articles')
+// user neither have add article or edit article permission
+
 ```
 
 ### Middleware
 
-This package comes with `CheckRole`, `CheckPermission` middleware.These middleware will be autoload by the RolePermissionServiceProvider. You dont't have to add again in your Http\Kernel
+This package comes with `CheckRole`, `CheckPermission` middleware. These middleware will be autoload by the RolePermissionServiceProvider. You dont't have to add again in your Http\Kernel
 
 Now you can easily protect your routes.
 
@@ -320,8 +382,19 @@ Route::get('/', function () {
     //
 })->middleware('permissions:edit-user');
 
-//Permissions middleware will chack the permissions based on the resource route names eg. [users/create => [users.create | [prefix].users.create]]
-Route::Resource('users','UserController')->middleware('permissions');
+//Permissions middleware will chack the permissions based on the resource route names eg. [posts/create => [posts.create | [prefix].posts.create]]
+
+// you should have laravel resource route name as same as in permissions table. Like below
+
+// posts.index
+// posts.create
+// posts.show
+// posts.edit
+// posts.update
+// posts.destroy
+
+
+Route::Resource('posts','PostController')->middleware('permissions');
 
 Route::group(['middleware' => ['roles:admin']], function () {
     //
