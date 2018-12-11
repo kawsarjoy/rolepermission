@@ -295,7 +295,7 @@ There are four Blade extensions. Basically, it is replacement for classic if sta
     // user has admin role
 @endrole
 
-@role('admin|author') // @if(Auth::check() && Auth::user()->hasRole('admin|author'))
+@role(['admin', 'author']) // @if(Auth::check() && Auth::user()->hasRole('admin|author'))
     // user has admin or author role
 @endrole
 
@@ -304,7 +304,7 @@ There are four Blade extensions. Basically, it is replacement for classic if sta
     // user has edit articles permissison
 @endpermission
 
-@permission('edit-articles|add-articles') // @if(Auth::check() && Auth::user()->hasPermission('edit-articles|add-articles'))
+@permission(['edit-articles','add-articles']) // @if(Auth::check() && Auth::user()->hasPermission('edit-articles|add-articles'))
     // user has edit or add articles permissison
 @endpermission
 
