@@ -62,6 +62,7 @@ Add the package to your application service providers in `config/app.php` file.
 Publish the package config file to your application. Run these commands inside your terminal.
 
     php artisan vendor:publish --tag=config
+    you may set `rolepermission-enable` to `false` to disable the feature
 
 ### Permissible Trait
 

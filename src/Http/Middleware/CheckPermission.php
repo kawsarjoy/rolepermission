@@ -16,6 +16,9 @@ class CheckPermission
      */
     public function handle($request, Closure $next, $permissions = '')
     {
+        if(!env('rolepermission_enable',1))
+            return $next($request);
+        
         if ($request->user() === null) {
             return redirect()->route(config('permissions-config.login-route'));
         }        
