@@ -16,19 +16,14 @@
 
             $this->publishes([
                 __DIR__.'/resources/views' => resource_path('views/vendor/rolepermission')
-            ], 'config');
-
+            ], 'views');
             $this->publishes([
                 __DIR__.'/config/permissions-config.php' => config_path('permissions-config.php'),
-            ], 'views');
-
-
+            ], 'config');
 
 
             $this->app['router']->aliasMiddleware('roles', \KawsarJoy\RolePermission\Http\Middleware\CheckRole::class);
-
             $this->app['router']->aliasMiddleware('permissions', \KawsarJoy\RolePermission\Http\Middleware\CheckPermission::class);
-
 
             $this->registerBladeDirectives();
 

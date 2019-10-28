@@ -61,7 +61,7 @@ Add the package to your application service providers in `config/app.php` file.
 
 Publish the package config file to your application. Run these commands inside your terminal.
 
-    php artisan vendor:publish --tag=config
+    php artisan vendor:publish --provider="KawsarJoy\RolePermission\RolePermissionServiceProvider" --tag="config"
     you may set `rolepermission-enable` to `false` to disable the feature
 
 ### Permissible Trait
@@ -419,7 +419,7 @@ Route::group(['middleware' => ['permissions:create-user|edit-user']], function (
 It throws 403 http error and load 403.blade.php view file which is come with the package. If you want to modify the view then you have to publish the view by running this command.
 
 ```
-php artisan vendor:publish --tag=views
+php artisan vendor:publish --provider="KawsarJoy\RolePermission\RolePermissionServiceProvider" --tag="views"
 ```
 
 ---
