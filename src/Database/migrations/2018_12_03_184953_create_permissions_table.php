@@ -13,12 +13,22 @@ class CreatePermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('permissions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->unique();
-            $table->string('description');
-            $table->timestamps();
-        });
+        $appV = (float)substr(App::VERSION(),0,3);
+        if($appV < 5.2){
+            Schema::create('permissions', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name')->unique();
+                $table->string('description');
+                $table->timestamps();
+            });
+        }else{
+            Schema::create('permissions', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('name')->unique();
+                $table->string('description');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

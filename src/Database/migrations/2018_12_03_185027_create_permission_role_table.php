@@ -13,11 +13,20 @@ class CreatePermissionRoleTable extends Migration
      */
     public function up()
     {
-        Schema::create('permission_role', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('permission_id')->unsigned();
-            $table->integer('role_id')->unsigned();
-        });
+        $appV = (float)substr(App::VERSION(),0,3);
+        if($appV < 5.2){
+            Schema::create('permission_role', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('permission_id')->unsigned();
+                $table->integer('role_id')->unsigned();
+            });
+        }else{
+            Schema::create('permission_role', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->bigInteger('permission_id')->unsigned();
+                $table->bigInteger('role_id')->unsigned();
+            });
+        }
 
         Schema::table('permission_role', function(Blueprint $table){
             $table->foreign('permission_id')
