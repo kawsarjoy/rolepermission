@@ -220,8 +220,8 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use jeremykenedy\LaravelRoles\Models\Role;
-use jeremykenedy\LaravelRoles\Models\Permission;
+use KawsarJoy\RolePermission\Models\Role;
+use KawsarJoy\RolePermission\Models\Permission;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 ```
