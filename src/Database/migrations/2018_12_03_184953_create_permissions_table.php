@@ -19,6 +19,9 @@ class CreatePermissionsTable extends Migration
                 $table->increments('id');
                 $table->string('name')->unique();
                 $table->string('description');
+                $table->integer('parent_id')->unsigned();
+                $table->integer('order');
+                $table->foreign('parent_id')->references('id')->on('permissions');
                 $table->timestamps();
             });
         }else{
@@ -26,6 +29,9 @@ class CreatePermissionsTable extends Migration
                 $table->bigIncrements('id');
                 $table->string('name')->unique();
                 $table->string('description');
+                $table->unsignedBigInteger('parent_id')->nullable();
+                $table->integer('order');
+                $table->foreign('parent_id')->references('id')->on('permissions');
                 $table->timestamps();
             });
         }
