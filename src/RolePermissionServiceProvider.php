@@ -48,6 +48,8 @@
             $blade = $this->app['view']->getEngineResolver()->resolve('blade')->getCompiler();
             
             $blade->directive('role', function ($expression) {
+            	if(!config('permissions-config.rolepermission-enable'))
+            		return "<?php if (true): ?>";
                 return "<?php if (Auth::check() && Auth::user()->hasRole({$expression})): ?>";
             });
 
@@ -56,6 +58,8 @@
             });
 
             $blade->directive('permission', function ($expression) {
+            	if(!config('permissions-config.rolepermission-enable'))
+            		return "<?php if (true): ?>";
                 return "<?php if (Auth::check() && Auth::user()->hasPermission({$expression})): ?>";
             });
 
