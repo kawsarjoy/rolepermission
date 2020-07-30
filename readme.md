@@ -1,4 +1,4 @@
-# Roles And Permissions For Laravel 5.7
+# Roles And Permissions For Laravel 5.7 or Higher
 
 A Simple package for handling roles and permissions in Laravel.
 
