@@ -13,8 +13,7 @@ class CreatePermissionsTable extends Migration
      */
     public function up()
     {
-        $appV = (float)substr(App::VERSION(),0,3);
-        if($appV < 5.2){
+        if(\DB::getSchemaBuilder()->getColumnType('users', 'id') == 'integer'){
             Schema::create('permissions', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name')->unique();

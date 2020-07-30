@@ -13,8 +13,7 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        $appV = (float)substr(App::VERSION(),0,3);
-        if($appV < 5.2){
+        if(\DB::getSchemaBuilder()->getColumnType('users', 'id') == 'integer'){
             Schema::create('roles', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name', 50)->unique();
