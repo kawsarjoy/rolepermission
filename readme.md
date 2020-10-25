@@ -64,6 +64,13 @@ Publish the package config file to your application. Run these commands inside y
     php artisan vendor:publish --provider="KawsarJoy\RolePermission\RolePermissionServiceProvider" --tag="config"
     you may set `rolepermission-enable` to `false` to disable the feature
 
+### Migration File
+
+Publish the package migration file to your application. Run these commands inside your terminal.
+
+    php artisan vendor:publish --provider="KawsarJoy\RolePermission\RolePermissionServiceProvider" --tag="migration"
+    you may set `do-migration` to `false` in config file to disable the migration
+
 ### Permissible Trait
 
 1. Include `Permissible` trait and also implement `Permissible` contract inside your `User` model. See example below.

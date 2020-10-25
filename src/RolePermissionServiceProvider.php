@@ -9,8 +9,9 @@
         public function boot()
         {
             $this->loadRoutesFrom(__DIR__.'/routes/web.php');
-
-            $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
+            if(config('permissions-config.rolepermission-enable')){
+                $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
+            }
 
             $this->loadViewsFrom(__DIR__.'/resources/views', 'rolepermission');
 
