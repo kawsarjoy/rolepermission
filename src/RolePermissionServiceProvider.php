@@ -20,6 +20,9 @@
             $this->publishes([
                 __DIR__.'/config/permissions-config.php' => config_path('permissions-config.php'),
             ], 'config');
+            $this->publishes([
+                __DIR__.'/Database/migrations' => database_path('migrations'),
+            ], 'migration');
 
 
             $this->app['router']->aliasMiddleware('roles', \KawsarJoy\RolePermission\Http\Middleware\CheckRole::class);
