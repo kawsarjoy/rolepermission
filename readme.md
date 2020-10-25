@@ -69,7 +69,8 @@ Publish the package config file to your application. Run these commands inside y
 Publish the package migration file to your application. Run these commands inside your terminal.
 
     php artisan vendor:publish --provider="KawsarJoy\RolePermission\RolePermissionServiceProvider" --tag="migration"
-    you may set `do-migration` to `false` in config file to disable the migration
+    you may set `do-migration` to `false` in config file to disable the migration.
+    Note: database must have all the necessary tables and columns if you disable migration.
 
 ### Permissible Trait
 
