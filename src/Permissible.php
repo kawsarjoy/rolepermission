@@ -10,12 +10,14 @@
     
         public function hasRole($roles)
         {
-            if (!is_array($roles)) $roles = [$roles];
+          if(!config('permissions-config.rolepermission-enable'))
+            return true;
+          if (!is_array($roles)) $roles = [$roles];
             
-            if ($this->roles()->whereIn('name', $roles)->first()) 
-                return true;
+          if ($this->roles()->whereIn('name', $roles)->first()) 
+              return true;
 
-            return false;
+          return false;
         }
     
         public function permissions()
@@ -35,6 +37,8 @@
          */
         public function hasPermission($permissions)
         {
+          if(!config('permissions-config.rolepermission-enable'))
+            return true;
           if(!is_array($permissions)) $permissions = [$permissions];
     
           return (boolean) $this->permissions()->whereIn('name', $permissions)->first();
