@@ -62,7 +62,15 @@ Add the package to your application service providers in `config/app.php` file.
 Publish the package config file to your application. Run these commands inside your terminal.
 
     php artisan vendor:publish --provider="KawsarJoy\RolePermission\RolePermissionServiceProvider" --tag="config"
-    you may set `rolepermission-enable` to `false` to disable the feature
+    you may set `rolepermission-enable` to `false` to disable the feature.
+    you may set `do-migration` to `false` in config file to disable the migration.
+    Note: database must have all the necessary tables and columns if you disable migration.
+
+### Migration File
+
+Publish the package migration file to your application. Run these commands inside your terminal.
+
+    php artisan vendor:publish --provider="KawsarJoy\RolePermission\RolePermissionServiceProvider" --tag="migration"
 
 ### Permissible Trait
 
@@ -448,4 +456,5 @@ Before opening an issue there are a couple of considerations:
 * Please be considerate that this is an open source project that I provide to the community for FREE when opening an issue. 
 
 ## License
-This package is free software distributed under the terms of the MIT license.
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/kawsarjoy/rolepermission">Role permission package for Laravel</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/kawsarjoy">MOHAMMAD ABU KAWSAR</a> is marked with <a href="http://creativecommons.org/publicdomain/zero/1.0?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC0 1.0 Universal
+<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1"></a></p>

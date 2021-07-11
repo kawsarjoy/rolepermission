@@ -9,8 +9,10 @@
         public function boot()
         {
             $this->loadRoutesFrom(__DIR__.'/routes/web.php');
-
-            $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
+            
+            if(config('permissions-config.do-migration')){
+                $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
+            }
 
             $this->loadViewsFrom(__DIR__.'/resources/views', 'rolepermission');
 
@@ -20,6 +22,9 @@
             $this->publishes([
                 __DIR__.'/config/permissions-config.php' => config_path('permissions-config.php'),
             ], 'config');
+            $this->publishes([
+                __DIR__.'/Database/migrations' => database_path('migrations'),
+            ], 'migration');
 
 
             $this->app['router']->aliasMiddleware('roles', \KawsarJoy\RolePermission\Http\Middleware\CheckRole::class);

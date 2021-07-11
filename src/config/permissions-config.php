@@ -2,6 +2,7 @@
 
     return [
         'rolepermission-enable' => true,
+        'do-migration' => true,
         'model' => 'App\User',
         'primary-key' => 'id',
         'name' => 'name',
