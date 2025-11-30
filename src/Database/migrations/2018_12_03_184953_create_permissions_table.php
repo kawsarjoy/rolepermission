@@ -15,7 +15,7 @@ class CreatePermissionsTable extends Migration
     {
         $table_prefix = config('permissions-config.table-prefix');
         if(\DB::getSchemaBuilder()->getColumnType('users', 'id') == 'integer'){
-            Schema::create($table_prefix.'permissions', function (Blueprint $table) {
+            Schema::create($table_prefix.'permissions', function (Blueprint $table) use($table_prefix){
                 $table->increments('id');
                 $table->string('name')->unique();
                 $table->string('description');
@@ -25,7 +25,7 @@ class CreatePermissionsTable extends Migration
                 $table->timestamps();
             });
         }else{
-            Schema::create($table_prefix.'permissions', function (Blueprint $table) {
+            Schema::create($table_prefix.'permissions', function (Blueprint $table) use($table_prefix){
                 $table->bigIncrements('id');
                 $table->string('name')->unique();
                 $table->string('description');
