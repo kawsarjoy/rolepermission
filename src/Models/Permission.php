@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Permission extends Model
 {
 
+    protected $table = config('permissions-config.table-prefix')."permissions";
     protected $guarded = [];
 
     public function roles()

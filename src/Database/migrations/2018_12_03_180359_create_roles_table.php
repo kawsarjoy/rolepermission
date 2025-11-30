@@ -13,15 +13,16 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
+        $table_prefix = config('permissions-config.table-prefix');
         if(\DB::getSchemaBuilder()->getColumnType('users', 'id') == 'integer'){
-            Schema::create('roles', function (Blueprint $table) {
+            Schema::create($table_prefix.'roles', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name', 50)->unique();
                 $table->string('description', 200);
                 $table->timestamps();
             });
         }else{
-            Schema::create('roles', function (Blueprint $table) {
+            Schema::create($table_prefix.'roles', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('name', 50)->unique();
                 $table->string('description', 200);
@@ -37,6 +38,7 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        $table_prefix = config('permissions-config.table-prefix');
+        Schema::dropIfExists($table_prefix.'roles');
     }
 }

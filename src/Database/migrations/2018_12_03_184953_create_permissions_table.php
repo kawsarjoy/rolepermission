@@ -13,24 +13,25 @@ class CreatePermissionsTable extends Migration
      */
     public function up()
     {
+        $table_prefix = config('permissions-config.table-prefix');
         if(\DB::getSchemaBuilder()->getColumnType('users', 'id') == 'integer'){
-            Schema::create('permissions', function (Blueprint $table) {
+            Schema::create($table_prefix.'permissions', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name')->unique();
                 $table->string('description');
                 $table->integer('parent_id')->unsigned();
                 $table->integer('order');
-                $table->foreign('parent_id')->references('id')->on('permissions');
+                $table->foreign('parent_id')->references('id')->on($table_prefix.'permissions');
                 $table->timestamps();
             });
         }else{
-            Schema::create('permissions', function (Blueprint $table) {
+            Schema::create($table_prefix.'permissions', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('name')->unique();
                 $table->string('description');
                 $table->unsignedBigInteger('parent_id')->nullable();
                 $table->integer('order');
-                $table->foreign('parent_id')->references('id')->on('permissions');
+                $table->foreign('parent_id')->references('id')->on($table_prefix.'permissions');
                 $table->timestamps();
             });
         }
@@ -43,6 +44,7 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions');
+        $table_prefix = config('permissions-config.table-prefix');
+        Schema::dropIfExists($table_prefix.'permissions');
     }
 }

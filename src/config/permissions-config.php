@@ -6,5 +6,6 @@
         'model' => 'App\User',
         'primary-key' => 'id',
         'name' => 'name',
-        'login-route' => 'login'
+        'login-route' => 'login',
+        'table_prefix' => ''
     ];

@@ -13,27 +13,28 @@ class CreateRoleUserTable extends Migration
      */
     public function up()
     {
+        $table_prefix = config('permissions-config.table-prefix');
         if(\DB::getSchemaBuilder()->getColumnType('users', 'id') == 'integer'){
-            Schema::create('role_user', function (Blueprint $table) {
+            Schema::create($table_prefix.'role_user', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('role_id')->unsigned();
                 $table->integer('user_id')->unsigned();
             });
         }else{
-            Schema::create('role_user', function (Blueprint $table) {
+            Schema::create($table_prefix.'role_user', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->bigInteger('role_id')->unsigned();
                 $table->bigInteger('user_id')->unsigned();
             });
         }
 
-        Schema::table('role_user', function(Blueprint $table){
+        Schema::table($table_prefix.'role_user', function(Blueprint $table){
             $table->foreign('user_id')
                   ->references('id')->on('users')
                   ->onDelete('cascade');
         });
 
-        Schema::table('role_user', function(Blueprint $table){
+        Schema::table($table_prefix.'role_user', function(Blueprint $table){
             $table->foreign('role_id')
                   ->references('id')->on('roles')
                   ->onDelete('cascade');
@@ -47,6 +48,7 @@ class CreateRoleUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_user');
+        $table_prefix = config('permissions-config.table-prefix');
+        Schema::dropIfExists($table_prefix.'role_user');
     }
 }

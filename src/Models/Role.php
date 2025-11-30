@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+  protected $table = config('permissions-config.table-prefix')."roles";
   protected $guarded = [];
   
 	public function users()
