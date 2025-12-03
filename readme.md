@@ -72,6 +72,12 @@ Publish the package migration file to your application. Run these commands insid
 
     php artisan vendor:publish --provider="KawsarJoy\RolePermission\RolePermissionServiceProvider" --tag="migration"
 
+### Migration File With Updated Timestamp
+
+Publish the package migration file to your application with updated timestamp. Run these commands inside your terminal.
+
+    php artisan vendor:publish --provider="KawsarJoy\RolePermission\RolePermissionServiceProvider" --tag="migration-latest"
+
 ### Permissible Trait
 
 1. Include `Permissible` trait and also implement `Permissible` contract inside your `User` model. See example below.
