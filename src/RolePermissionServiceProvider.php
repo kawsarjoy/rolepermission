@@ -26,9 +26,8 @@
                 __DIR__.'/Database/migrations' => database_path('migrations'),
             ], 'migration');
 
-            $tmp = database_path('migrations-tmp');
             $this->publishes([
-                __DIR__.'/Database/migrations' => $tmp,
+                __DIR__.'/Database/migrations' => database_path('migrations-tmp'),
             ], 'migration-latest');
 
             $this->app['router']->aliasMiddleware('roles', \KawsarJoy\RolePermission\Http\Middleware\CheckRole::class);
