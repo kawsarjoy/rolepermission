@@ -28,15 +28,15 @@ class CreatePermissionRoleTable extends Migration
             });
         }
 
-        Schema::table($table_prefix.'permission_'.$table_prefix.'role', function(Blueprint $table){
+        Schema::table($table_prefix.'permission_'.$table_prefix.'role', function(Blueprint $table) use($table_prefix){
             $table->foreign('permission_id')
-                  ->references('id')->on('permissions')
+                  ->references('id')->on($table_prefix.'permissions')
                   ->onDelete('cascade');
         });
 
-        Schema::table($table_prefix.'permission_'.$table_prefix.'role', function(Blueprint $table){
+        Schema::table($table_prefix.'permission_'.$table_prefix.'role', function(Blueprint $table) use($table_prefix){
             $table->foreign('role_id')
-                  ->references('id')->on('roles')
+                  ->references('id')->on($table_prefix.'roles')
                   ->onDelete('cascade');
         });
     }
