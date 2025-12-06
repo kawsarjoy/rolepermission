@@ -66,6 +66,7 @@
                 $tags = $event->input->getOption('tag');
 
                 if (! $tags) {
+                    \Log::info('KawsarJoy\RolePermission with No Tag');
                     return;
                 }
 
@@ -76,6 +77,8 @@
                     // Now run the timestamp handler
                     $tmp = database_path('migrations-tmp');
                     $this->handleTimestampedMigrations($tmp);
+                }else{
+                    \Log::info('KawsarJoy\RolePermission with Tag'.json_encode($tagsArr));
                 }
             });
 
