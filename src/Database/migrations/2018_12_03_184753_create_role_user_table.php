@@ -27,18 +27,6 @@ class CreateRoleUserTable extends Migration
                 $table->bigInteger('user_id')->unsigned();
             });
         }
-
-        Schema::table($table_prefix.'role_user', function(Blueprint $table){
-            $table->foreign('user_id')
-                  ->references('id')->on('users')
-                  ->onDelete('cascade');
-        });
-
-        Schema::table($table_prefix.'role_user', function(Blueprint $table){
-            $table->foreign('role_id')
-                  ->references('id')->on('roles')
-                  ->onDelete('cascade');
-        });
     }
 
     /**

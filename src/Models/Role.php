@@ -6,8 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-  protected $table = config('permissions-config.table-prefix')."roles";
   protected $guarded = [];
+
+  public function getTable()
+  {
+      return config('permissions-config.table-prefix').'roles';
+  }
   
 	public function users()
 	{
@@ -16,7 +20,7 @@ class Role extends Model
 
   public function permissions()
   {
-    return $this->belongsToMany('KawsarJoy\RolePermission\Models\Permission');
+    return $this->belongsToMany('KawsarJoy\RolePermission\Models\Permission', config('permissions-config.table-prefix').'permission_'.config('permissions-config.table-prefix').'role');
   }
 
   public function scopeGetRoleByPermission($query, $name)

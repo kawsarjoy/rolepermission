@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Permission extends Model
 {
-
-    protected $table = config('permissions-config.table-prefix')."permissions";
     protected $guarded = [];
+
+    public function getTable()
+    {
+        return config('permissions-config.table-prefix').'permissions';
+    }
 
     public function roles()
     {
-      return $this->belongsToMany('KawsarJoy\RolePermission\Models\Role');
+      return $this->belongsToMany('KawsarJoy\RolePermission\Models\Permission', config('permissions-config.table-prefix').'permission_'.config('permissions-config.table-prefix').'role');
     }
 
     public function users()
