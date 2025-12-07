@@ -5,7 +5,7 @@
     {
         public function roles()
         {
-          return $this->belongsToMany('KawsarJoy\RolePermission\Models\Role');
+          return $this->belongsToMany('KawsarJoy\RolePermission\Models\Permission', config('permissions-config.table-prefix').'permission_'.config('permissions-config.table-prefix').'role');
         }
     
         public function hasRole($roles)
