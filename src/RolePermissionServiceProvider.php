@@ -144,14 +144,17 @@
 
         /**
          * Copy migration stubs from the temporary publish folder to database/migrations
-         * with freshly-generated timestamped filenames. Runs only when $tmp exists.
+         * with freshly-generated timestamped filenames and update the class name so it's
+         * a valid PHP identifier (timestamps cannot start with a digit).
+         *
+         * Runs only when $tmpPath exists.
          *
          * @param string $tmpPath
          * @return void
          */
-        protected function handleTimestampedMigrations(string $tmpPath)
+        protected function handleTimestampedMigrations(string $tmpPath): void
         {
-            $filesystem = new Filesystem;
+            $filesystem = new \Illuminate\Filesystem\Filesystem;
 
             if (! $filesystem->exists($tmpPath)) {
                 // Not publishing with the timestamp tag — do nothing
@@ -169,7 +172,7 @@
 
             // We'll ensure unique timestamps across files (increment seconds or append an index)
             $now = now(); // Illuminate\Support\Carbon
-            $sec = (int)$now->format('U'); // seconds since epoch
+            $sec = (int) $now->format('U'); // seconds since epoch
             $index = 0;
 
             foreach ($files as $file) {
@@ -178,8 +181,8 @@
                 // Original filename (without any directory)
                 $originalFilename = $file->getFilename();
 
-                // Make a safe base name to check duplicates: keep the filename part after any existing timestamp
-                // Remove leading timestamp-like patterns "YYYY_MM_DD_HHMMSS_" if present
+                // Remove any leading Laravel-like timestamp "YYYY_MM_DD_His_" if present
+                // (His = 6 digits for hour-minute-second)
                 $basename = preg_replace('/^\d{4}_\d{2}_\d{2}_\d{6}_?/', '', $originalFilename);
 
                 // If a migration with this basename already exists in database/migrations, skip it
@@ -190,21 +193,53 @@
                 }
 
                 // Create a unique timestamp string: Y_m_d_His plus an index to guarantee uniqueness
-                // We use sec + index to avoid duplicate seconds, then format to Laravel timestamp.
-                $timestamp = date('Y_m_d_His', $sec + $index - 1);
+                // We use sec + index to avoid duplicate seconds, then format to Laravel filename timestamp.
+                $timestampForFile = date('Y_m_d_His', $sec + $index - 1);
 
-                // If you want to strictly guarantee uniqueness even within the same second,
-                // you can append an incremental suffix:
+                // Unique suffix if multiple files fall in the same second
                 $uniqueSuffix = $index > 1 ? "_{$index}" : '';
 
-                $newFileName = $timestamp . $uniqueSuffix . '_' . $basename;
+                // Now update the class name inside the copied file so it forms a valid PHP identifier.
+                // Build a safe class name prefix: 'M' + YmdHis (no leading digit problem).
+                $safeTimestampForClass = 'M' . date('YmdHis', $sec + $index - 1) . ($index > 1 ? $index : '');
+
+                $newFileName = $timestampForFile .'_'. $safeTimestampForClass .'_'. $basename;
+                $targetPath = database_path('migrations/' . $newFileName);
 
                 // Copy file into final migrations folder
-                $filesystem->copy($file->getRealPath(), database_path('migrations/' . $newFileName));
+                $filesystem->copy($file->getRealPath(), $targetPath);
+
+                try {
+                    $contents = $filesystem->get($targetPath);
+
+                    // Match the migration class declaration: class <Name> extends Migration
+                    if (preg_match('/class\s+([A-Za-z_][A-Za-z0-9_]*)\s+extends\s+Migration/', $contents, $m)) {
+                        $originalClass = $m[1];
+
+                        // Create new class name by prefixing the safe timestamp
+                        // e.g. M20250101120000CreateRolesTable or M202501011200001CreateRolesTable (if index appended)
+                        $newClass = $safeTimestampForClass . $originalClass;
+
+                        // Replace the first occurrence of the class declaration only
+                        $contents = preg_replace(
+                            '/class\s+' . preg_quote($originalClass, '/') . '\s+extends\s+Migration/',
+                            'class ' . $newClass . ' extends Migration',
+                            $contents,
+                            1
+                        );
+
+                        // Write updated file
+                        $filesystem->put($targetPath, $contents);
+                    }
+                } catch (\Exception $e) {
+                    // If something went wrong updating the class name, optionally log or throw.
+                    // For now, we will continue; the filename was already copied.
+                    // You can replace this with logging or rethrowing if you prefer:
+                    // \Log::error('Failed updating migration class name: ' . $e->getMessage());
+                }
             }
 
             // Clean up temporary folder so handler won't run again
             $filesystem->deleteDirectory($tmpPath);
         }
-
     }
