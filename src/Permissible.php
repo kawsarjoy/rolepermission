@@ -47,7 +47,7 @@
     
         public function scopeGetUserByRole($query, $name)
         {
-          return $query->whereHas('roles', function ($query) use($name) {
+          return $query->whereHas(config('permissions-config.table-prefix').'roles', function ($query) use($name) {
             
                 $query->where('name', $name);
             })->get();
