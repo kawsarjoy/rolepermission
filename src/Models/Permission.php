@@ -23,7 +23,6 @@ class Permission extends Model
       $users = [];
 
       foreach ($this->roles as $key => $role) {
-
         $users[] = $role->users;
       }
 
