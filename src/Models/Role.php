@@ -25,7 +25,7 @@ class Role extends Model
 
   public function scopeGetRoleByPermission($query, $name)
   {
-    return $query->whereHas('permissions', function ($query) use($name) {
+    return $query->whereHas(config('permissions-config.table-prefix').'permissions', function ($query) use($name) {
       
           $query->where('name', $name);
       })->get();
