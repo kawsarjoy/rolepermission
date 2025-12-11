@@ -15,7 +15,7 @@ class Permission extends Model
 
     public function roles()
     {
-      return $this->belongsToMany('KawsarJoy\RolePermission\Models\Permission', config('permissions-config.table-prefix').'permission_'.config('permissions-config.table-prefix').'role');
+      return $this->belongsToMany('KawsarJoy\RolePermission\Models\Role', config('permissions-config.table-prefix').'permission_'.config('permissions-config.table-prefix').'role');
     }
 
     public function users()
